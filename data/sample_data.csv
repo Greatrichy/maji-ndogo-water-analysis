@@ -1,0 +1,6 @@
+source_id,type_of_water_source,number_of_people_served,province_name,town_name,location_type
+AkHa00000,tap_in_home,1500,Akatsi,Harare,Urban
+AkRu00001,shared_tap,3400,Akatsi,Rural,Rural
+AmAm00002,tap_in_home_broken,2100,Amanzi,Amina,Urban
+SoBa00003,river,500,Sokoto,Bahari,Rural
+SoRu00004,well,800,Sokoto,Rural,Rural
