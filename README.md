@@ -36,6 +36,7 @@ I created a master `VIEW` (`combined_analysis_table`) to securely join all table
 * **Contaminated Wells:** Install UV and/or Reverse Osmosis filters.
 * **Broken Home Taps:** Dispatch teams to diagnose local infrastructure.
 * **Shared Taps (High Wait Times):** Used the `FLOOR()` mathematical function to calculate exactly how many extra taps were needed to bring queue times under the UN standard of 30 minutes.
+
   graph TD
     A([Start: Evaluate Water Source]) --> B{Is visit_count = 1?}
     
