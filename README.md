@@ -101,8 +101,8 @@ I created a master `VIEW` (`combined_analysis_table`) to securely join all table
 graph TD
     A([Start: Evaluate Water Source]) --> B{Is visit_count = 1?}
     
-    B -- No --> C([Drop Record from Dataset])
-    B -- Yes --> D{What is the Source Type?}
+    B -- Clean --> C([Drop Record from Dataset])
+    B -- Chemical Contamination --> D{What is the Source Type?}
 
     %% River Branch
     D -- River --> E[Action: Drill well]
@@ -112,8 +112,8 @@ graph TD
     
     %% Shared Tap Branch
     D -- Shared Tap --> G{Is Queue Time >= 30 mins?}
-    G -- No --> C
-    G -- Yes --> H[Action: Install FLOOR(time/30) extra taps nearby]
+    G -- Clean --> C
+    G -- Chemical Contamination --> H["Action: Install FLOOR(time/30) extra taps nearby"]
     
     %% Well Branch
     D -- Well --> I{Check Pollution Results}
@@ -122,7 +122,7 @@ graph TD
     I -- Biological Contamination --> K[Action: Install UV and RO filter]
 
     %% Final Output
-    E --> L[(INSERT INTO Project_progress Table)]
+    E --> L[s24]
     F --> L
     H --> L
     J --> L
