@@ -35,7 +35,41 @@ I created a master `VIEW` (`combined_analysis_table`) to securely join all table
 * **Rivers:** Route teams to drill wells.
 * **Contaminated Wells:** Install UV and/or Reverse Osmosis filters.
 * **Broken Home Taps:** Dispatch teams to diagnose local infrastructure.
-* **Shared Taps (High Wait Times):** Used the `FLOOR()` mathematical function to calculate exactly how many extra taps were needed to bring queue times under the UN standard of 30 minutes. 
+* **Shared Taps (High Wait Times):** Used the `FLOOR()` mathematical function to calculate exactly how many extra taps were needed to bring queue times under the UN standard of 30 minutes.
+  graph TD
+    A([Start: Evaluate Water Source]) --> B{Is visit_count = 1?}
+    
+    B -- No --> C([Drop Record from Dataset])
+    B -- Yes --> D{What is the Source Type?}
+
+    %% River Branch
+    D -- River --> E[Action: Drill well]
+    
+    %% Broken Tap Branch
+    D -- Broken Home Tap --> F[Action: Diagnose local infrastructure]
+    
+    %% Shared Tap Branch
+    D -- Shared Tap --> G{Is Queue Time >= 30 mins?}
+    G -- No --> C
+    G -- Yes --> H[Action: Install FLOOR(time/30) extra taps nearby]
+    
+    %% Well Branch
+    D -- Well --> I{Check Pollution Results}
+    I -- Clean --> C
+    I -- Chemical Contamination --> J[Action: Install RO filter]
+    I -- Biological Contamination --> K[Action: Install UV and RO filter]
+
+    %% Final Output
+    E --> L[(INSERT INTO Project_progress Table)]
+    F --> L
+    H --> L
+    J --> L
+    K --> L
+
+    %% Styling
+    style A fill:#2d3436,stroke:#000,stroke-width:2px,color:#fff
+    style C fill:#d63031,stroke:#000,stroke-width:2px,color:#fff
+    style L fill:#0984e3,stroke:#000,stroke-width:2px,color:#fff
 
 ---
 
